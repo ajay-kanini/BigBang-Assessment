@@ -11,11 +11,13 @@ public class Users
 
     [Column("Age")]
     public int? Age { get; set; }
+    
+    [Column("Phone Number")]
+    public string?  PhoneNumber { get; set; }
 
     [Column("Role")]
     public string? Role { get; set; }
 
-    [Required]
     [Column("Password")]
     public byte[]? Password { get; set; }
 

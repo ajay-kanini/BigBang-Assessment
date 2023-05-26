@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RegistrationAndLogin.Model.DTO;
 using RegistrationAndLogin.Services;
 
-namespace RegistrationAndLogin.Context
+namespace RegistrationAndLogin.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

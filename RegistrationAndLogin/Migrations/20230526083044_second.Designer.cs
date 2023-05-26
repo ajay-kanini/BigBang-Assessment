@@ -12,8 +12,8 @@ using RegistrationAndLogin.Context;
 namespace RegistrationAndLogin.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230526071837_init")]
-    partial class init
+    [Migration("20230526083044_second")]
+    partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,36 +23,6 @@ namespace RegistrationAndLogin.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("RegistrationAndLogin.Model.Hotels", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Hotel Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("HotelName")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Hotel Name");
-
-                    b.Property<string>("LocationCity")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("City Location");
-
-                    b.Property<string>("LocationCountry")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Country Loacation");
-
-                    b.Property<float?>("Price")
-                        .HasColumnType("real")
-                        .HasColumnName("Price");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Hotel");
-                });
 
             modelBuilder.Entity("RegistrationAndLogin.Model.Users", b =>
                 {
@@ -69,9 +39,12 @@ namespace RegistrationAndLogin.Migrations
                         .HasColumnName("Hash Key");
 
                     b.Property<byte[]>("Password")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)")
                         .HasColumnName("Password");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Phone Number");
 
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)")

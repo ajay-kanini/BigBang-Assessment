@@ -32,7 +32,7 @@ namespace RegistrationAndLogin.Services
                 Expires = DateTime.Now.AddDays(3),
                 SigningCredentials = cred
             };
-            //Using teh handler to generate the token
+            //Using the handler to generate the token
             var tokenHandler = new JwtSecurityTokenHandler();
             var myToken = tokenHandler.CreateToken(tokenDescription);
             token = tokenHandler.WriteToken(myToken);

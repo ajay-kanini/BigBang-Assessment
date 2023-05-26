@@ -10,8 +10,6 @@ namespace RegistrationAndLogin.Context
 
         }
         public DbSet<Users> User { get; set; }
-        public DbSet<Hotels> Hotel { get; set; }
-
 
     }
 }

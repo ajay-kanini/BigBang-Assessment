@@ -9,7 +9,6 @@ namespace RegistrationAndLogin.Model
     {
         [Key]
         [Column("Hotel Id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Column("Hotel Name")]
