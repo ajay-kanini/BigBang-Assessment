@@ -9,11 +9,19 @@ namespace RegistrationAndLogin.Services
     public class UserRepo : IBaseRepo<string, Users>
     {
         private readonly DatabaseContext _databaseContext;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databaseContext"></param>
         public UserRepo(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext; 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public Users Add(Users item)
         {
             try
@@ -29,7 +37,11 @@ namespace RegistrationAndLogin.Services
             }
             return null;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Users Get(string key)
         {
             var user = _databaseContext.User.FirstOrDefault(u => u.UserName == key);

@@ -10,13 +10,21 @@ namespace RegistrationAndLogin.Services
     {
         private IBaseRepo<string, Users> _baseRepo;
         private IGenerateUserToken _generateUserToken;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseRepo"></param>
+        /// <param name="generateUserToken"></param>
         public UserService(IBaseRepo<string, Users> baseRepo, IGenerateUserToken generateUserToken)
         {
             _baseRepo = baseRepo;
             _generateUserToken = generateUserToken; 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userDTO"></param>
+        /// <returns></returns>
         public UserDTO Login(UserDTO userDTO)
         {
             UserDTO user = null;
@@ -37,8 +45,12 @@ namespace RegistrationAndLogin.Services
             }
             return user;
         }
-
-          public UserDTO Register(UserRegisterDTO userDTO) 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userDTO"></param>
+        /// <returns></returns>
+        public UserDTO Register(UserRegisterDTO userDTO) 
         {
             UserDTO user = null;
             var hmac = new HMACSHA512();

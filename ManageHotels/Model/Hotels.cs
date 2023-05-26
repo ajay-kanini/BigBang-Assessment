@@ -22,5 +22,8 @@ namespace RegistrationAndLogin.Model
 
         [Column("Price")]
         public float? Price { get; set; }
+
+        [Column("Amenties")]
+        public string? Amenties { get; set; }
     }
 }

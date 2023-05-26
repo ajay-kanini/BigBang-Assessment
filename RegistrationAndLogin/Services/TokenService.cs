@@ -10,11 +10,19 @@ namespace RegistrationAndLogin.Services
     public class TokenService : IGenerateUserToken
     {
         private readonly SymmetricSecurityKey _key;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
         public TokenService(IConfiguration configuration)
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userDTO"></param>
+        /// <returns></returns>
         public string GenerateUserToken(UserDTO userDTO)
         {
             string token = string.Empty;

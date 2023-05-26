@@ -53,7 +53,7 @@ namespace RegistrationAndLogin
             });
             builder.Services.AddScoped<IBaseRepo<string, Users>, UserRepo>();
             builder.Services.AddScoped<UserService>();
-            builder.Services.AddScoped<IGenerateUserToken, TokenService>();
+            builder.Services.AddScoped<IGenerateUserToken, TokenService>();         
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
