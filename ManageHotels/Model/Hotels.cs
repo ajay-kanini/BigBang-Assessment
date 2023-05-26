@@ -20,9 +20,6 @@ namespace RegistrationAndLogin.Model
         [Column("Country Loacation")]
         public string? LocationCountry { get; set; }
 
-        [Column("Price")]
-        public float? Price { get; set; }
-
         [Column("Amenties")]
         public string? Amenties { get; set; }
     }

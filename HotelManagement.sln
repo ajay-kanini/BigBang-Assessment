@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistrationAndLogin", "Reg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManageHotels", "ManageHotels\ManageHotels.csproj", "{FF002A78-E466-4E55-ABC7-71963C5EDB83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManageRooms", "ManageRooms\ManageRooms.csproj", "{E008C127-AF27-4833-97BB-F690E4535CC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FF002A78-E466-4E55-ABC7-71963C5EDB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF002A78-E466-4E55-ABC7-71963C5EDB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF002A78-E466-4E55-ABC7-71963C5EDB83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E008C127-AF27-4833-97BB-F690E4535CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E008C127-AF27-4833-97BB-F690E4535CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E008C127-AF27-4833-97BB-F690E4535CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E008C127-AF27-4833-97BB-F690E4535CC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

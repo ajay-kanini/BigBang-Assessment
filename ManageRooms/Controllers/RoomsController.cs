@@ -1,73 +1,74 @@
-﻿using HotelAPI.Services;
-using ManageHotels.Interfaces;
-using ManageHotels.Model.DTO;
+﻿using ManageRooms.Interfaces;
+using ManageRooms.Models;
+using ManageRooms.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RegistrationAndLogin.Model;
 
-namespace ManageHotels.Controllers
+namespace ManageRooms.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class HotelsController : ControllerBase
+    public class RoomsController : ControllerBase
     {
-        private readonly IRepo<int, Hotels> _repo;
-
-        public HotelsController(IRepo<int, Hotels> repo)
+        private readonly IRepo<int, Rooms> _repo;
+        public RoomsController(IRepo<int, Rooms> repo)
         {
-                 _repo = repo;  
+            _repo = repo;
         }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="hotel"></param>
+        /// <param name="rooms"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Hotels> Add([FromBody] Hotels hotel)
+        public ActionResult<Rooms> AddRooms([FromBody] Rooms rooms)
         {
-            var addHotel = _repo.Add(hotel);
-            if (addHotel == null)
+            var addRooms = _repo.Add(rooms);
+            if (addRooms == null)
             {
                 return BadRequest("Unable to add");
             }
-            return Created("Welcome", addHotel);
+            return Created("Welcome", addRooms);
         }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="hotel"></param>
+        /// <param name="rooms"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Hotels> Update([FromBody] Hotels hotel)
+        public ActionResult<Rooms> Update([FromBody] Rooms rooms)
         {
-            var updateHotel = _repo.Update(hotel);
+            var updateHotel = _repo.Update(rooms);
             if (updateHotel == null)
             {
                 return BadRequest("Unable to update");
             }
             return Ok(updateHotel);
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Hotels> Get([FromBody] int key)
+        public ActionResult<Rooms> Get([FromBody] int key)
         {
             var getOneHotel = _repo.Get(key);
             if (getOneHotel == null)
@@ -76,17 +77,18 @@ namespace ManageHotels.Controllers
             }
             return Ok(getOneHotel);
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Hotels> GetAll()
+        public ActionResult<Rooms> GetAll()
         {
             var getAllHotel = _repo.GetAll();
             if (getAllHotel == null)
@@ -102,12 +104,12 @@ namespace ManageHotels.Controllers
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Hotels> Delete(int key)
+        public ActionResult<Rooms> Delete(int key)
         {
             var getAllHotel = _repo.Delete(key);
             if (getAllHotel == null)

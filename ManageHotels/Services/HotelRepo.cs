@@ -18,22 +18,38 @@ namespace HotelAPI.Services
         {
             _hotelsContext = hotelsContext;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public Hotels Add(Hotels item)
         {
-            try
-            {
-                _hotelsContext.Hotel.Add(item);
-                _hotelsContext.SaveChanges();
-                return item;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-            return null;
+            _hotelsContext.Hotel.Add(item);
+            _hotelsContext.SaveChanges();
+            return item;
         }
 
+        //public Hotels Add(Hotels item)
+        //{
+        //    try
+        //    {
+        //        _hotelsContext.Hotel.Add(item);
+        //        _hotelsContext.SaveChanges();
+        //        return item;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
+        //    }
+        //    return null;
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Hotels Delete(int key)
         {
             var hotel = Get(key);
@@ -61,18 +77,26 @@ namespace HotelAPI.Services
             return hotel;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ICollection<Hotels> GetAll()
         {
             return _hotelsContext.Hotel.ToList();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public Hotels Update(Hotels item)
         {
             var Hotel = Get(item.Id);
             if (Hotel != null)
             {
                 Hotel.HotelName = item.HotelName;
-                Hotel.Price = item.Price;   
                 Hotel.LocationCity = item.LocationCity; 
                 Hotel.LocationCountry=item.LocationCountry;
                 Hotel.Amenties = item.Amenties; 

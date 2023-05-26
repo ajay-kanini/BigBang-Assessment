@@ -2,6 +2,9 @@
 
 namespace RegistrationAndLogin.Interfaces
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IGenerateUserToken
     {
         public string GenerateUserToken(UserDTO userDTO);  
