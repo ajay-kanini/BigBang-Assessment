@@ -29,7 +29,8 @@ namespace RegistrationAndLogin.Services
             //User identity
             var claims = new List<Claim>
              {
-               new Claim(JwtRegisteredClaimNames.NameId,userDTO.UserName)
+               new Claim(JwtRegisteredClaimNames.NameId,userDTO.UserName),
+               new Claim(ClaimTypes.Role, userDTO.Role)
              };
             //Signature algorithm
             var cred = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
@@ -46,8 +47,7 @@ namespace RegistrationAndLogin.Services
             token = tokenHandler.WriteToken(myToken);
             return token;
         }
-            
-    }
-        
-}
 
+    }
+
+}

@@ -15,7 +15,7 @@ namespace RegistrationAndLogin.Services
         /// <param name="databaseContext"></param>
         public UserRepo(DatabaseContext databaseContext)
         {
-            _databaseContext = databaseContext; 
+            _databaseContext = databaseContext;
         }
         /// <summary>
         /// 

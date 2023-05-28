@@ -2,6 +2,7 @@
 using ManageHotels.Interfaces;
 using ManageHotels.Model.DTO;
 using ManageHotels.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RegistrationAndLogin.Model;
@@ -23,6 +24,8 @@ namespace ManageHotels.Controllers
         /// </summary>
         /// <param name="hotel"></param>
         /// <returns></returns>
+        /// 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -42,6 +45,8 @@ namespace ManageHotels.Controllers
         /// </summary>
         /// <param name="hotel"></param>
         /// <returns></returns>
+        /// 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -102,6 +107,8 @@ namespace ManageHotels.Controllers
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
+        /// 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -135,7 +142,7 @@ namespace ManageHotels.Controllers
             var getCityHotel = _service.GetHotelsByCity(city);
             if (getCityHotel == null)
             {
-                return BadRequest("Unable to delete");
+                return BadRequest("Unable to fetch");
             }
             return Ok(getCityHotel);
         }
@@ -157,7 +164,7 @@ namespace ManageHotels.Controllers
             var getCountryHotel = _service.GetHotelsByCountry(city);
             if (getCountryHotel == null)
             {
-                return BadRequest("Unable to delete");
+                return BadRequest("Unable to fetch");
             }
             return Ok(getCountryHotel);
         }
@@ -173,7 +180,7 @@ namespace ManageHotels.Controllers
             var getHotelAmenties = _service.GetHotelsByAmenties(amenties);
             if (getHotelAmenties == null)
             {
-                return BadRequest("Unable to delete");
+                return BadRequest("Unable to fetch");
             }
             return Ok(getHotelAmenties);
         }

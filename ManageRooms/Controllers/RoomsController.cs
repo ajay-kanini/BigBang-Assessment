@@ -1,6 +1,7 @@
 ﻿using ManageRooms.Interfaces;
 using ManageRooms.Models;
 using ManageRooms.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,10 @@ namespace ManageRooms.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
-        //private readonly IRepo<int, Rooms> _service;
         private readonly RoomsService _service;
         public RoomsController(IRepo<int, Rooms> repo, RoomsService service)
         {
             _service = service; 
-            //_service = repo;
         }
 
         /// <summary>
@@ -23,6 +22,7 @@ namespace ManageRooms.Controllers
         /// </summary>
         /// <param name="rooms"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -43,6 +43,7 @@ namespace ManageRooms.Controllers
         /// </summary>
         /// <param name="rooms"></param>
         /// <returns></returns>
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -64,6 +65,7 @@ namespace ManageRooms.Controllers
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
+        /// 
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -105,6 +107,8 @@ namespace ManageRooms.Controllers
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
+        /// 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -127,6 +131,7 @@ namespace ManageRooms.Controllers
         /// <param name="hotelId"></param>
         /// <returns></returns>
         /// 
+
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -138,7 +143,7 @@ namespace ManageRooms.Controllers
             var hotelRooms = _service.RoomsofHotels(hotelId);
             if (hotelRooms.Count == 0)
             {
-                return NotFound("No Rooms under this hotel");
+                return NotFound("No room under this hotel");
             }
             return Ok(hotelRooms);
         }
@@ -161,7 +166,7 @@ namespace ManageRooms.Controllers
             var hotelRooms = _service.CountAvailableRooms(hotelId);
             if (hotelRooms.Count == 0)
             {
-                return NotFound("No Rooms is available right now");
+                return NotFound("No room is available right now");
             }
             return Ok(hotelRooms.Count);
         }
@@ -183,7 +188,7 @@ namespace ManageRooms.Controllers
             var hotelRooms = _service.AvailableAmenties(amenties);
             if (hotelRooms.Count == 0)
             {
-                return NotFound("No Rooms is available right now");
+                return NotFound("No room is available right now");
             }
             return Ok(hotelRooms);
         }

@@ -12,6 +12,11 @@ namespace ManageBooking.Services
             _repo = repo;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ICollection<Booking> UserBookingDetails(int id)
         {
             var bookings = _repo.GetAll();

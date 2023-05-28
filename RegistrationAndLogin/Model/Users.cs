@@ -7,7 +7,7 @@ public class Users
 {
     [Key]
     [Column("Id")]
-    public int id { get; set; }
+    public int Id { get; set; }
 
     [Column("User Name")]
     public string? UserName { get; set; }

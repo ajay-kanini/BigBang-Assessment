@@ -1,6 +1,8 @@
 ﻿using ManageBooking.Intefaces;
 using ManageBooking.Model;
 using ManageBooking.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -20,6 +22,13 @@ namespace ManageBooking.Controllers
             _repo = repo;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Booking"></param>
+        /// <returns></returns>
+        /// 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(typeof(ICollection<Booking>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -35,6 +44,13 @@ namespace ManageBooking.Controllers
             return Created("Welcome", addBooking);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Booking"></param>
+        /// <returns></returns>
+        /// 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(typeof(ICollection<Booking>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -51,6 +67,11 @@ namespace ManageBooking.Controllers
             return Ok(updateBooking);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Booking>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -67,6 +88,10 @@ namespace ManageBooking.Controllers
             return Ok(getOneBooking);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Booking>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -83,6 +108,13 @@ namespace ManageBooking.Controllers
             return Ok(getAllBooking);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Booking>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -99,7 +131,12 @@ namespace ManageBooking.Controllers
             return Ok(deleteBooking);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "Admin, User")]
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<Booking>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -111,7 +148,7 @@ namespace ManageBooking.Controllers
             var bookingDetails = _service.UserBookingDetails(id);
             if (bookingDetails== null)
             {
-                return BadRequest("Unable to delete");
+                return BadRequest("Unable to fetch");
             }
             return Ok(bookingDetails);
         }

@@ -25,25 +25,18 @@ namespace HotelAPI.Services
         /// <returns></returns>
         public Hotels Add(Hotels item)
         {
-            _hotelsContext.Hotel.Add(item);
-            _hotelsContext.SaveChanges();
-            return item;
+            try
+            {
+                _hotelsContext.Hotel.Add(item);
+                _hotelsContext.SaveChanges();
+                return item;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return null;
         }
-
-        //public Hotels Add(Hotels item)
-        //{
-        //    try
-        //    {
-        //        _hotelsContext.Hotel.Add(item);
-        //        _hotelsContext.SaveChanges();
-        //        return item;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-        //    }
-        //    return null;
-        //}
 
         /// <summary>
         /// 

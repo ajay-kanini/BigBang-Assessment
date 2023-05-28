@@ -18,7 +18,7 @@ namespace RegistrationAndLogin.Services
         public UserService(IBaseRepo<string, Users> baseRepo, IGenerateUserToken generateUserToken)
         {
             _baseRepo = baseRepo;
-            _generateUserToken = generateUserToken; 
+            _generateUserToken = generateUserToken;
         }
         /// <summary>
         /// 
@@ -50,14 +50,14 @@ namespace RegistrationAndLogin.Services
         /// </summary>
         /// <param name="userDTO"></param>
         /// <returns></returns>
-        public UserDTO Register(UserRegisterDTO userDTO) 
+        public UserDTO Register(UserRegisterDTO userDTO)
         {
             UserDTO user = null;
             var hmac = new HMACSHA512();
             userDTO.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.PasswordClear));
             userDTO.HashKey = hmac.Key;
             var resultUser = _baseRepo.Add(userDTO);
-            if(resultUser != null)
+            if (resultUser != null)
             {
                 user = new UserDTO();
                 user.UserName = resultUser.UserName;

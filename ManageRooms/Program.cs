@@ -2,8 +2,11 @@ using ManageRooms.Context;
 using ManageRooms.Interfaces;
 using ManageRooms.Models;
 using ManageRooms.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace ManageRooms
 {
@@ -18,50 +21,51 @@ namespace ManageRooms
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            //builder.Services.AddSwaggerGen(c => {
-            //    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            //    {
-            //        Name = "Authorization",
-            //        Type = SecuritySchemeType.Http,
-            //        Scheme = "Bearer",
-            //        BearerFormat = "JWT",
-            //        In = ParameterLocation.Header,
-            //        Description = "JWT Authorization header using the Bearer scheme."
-            //    });
-            //    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            //     {
-            //         {
-            //               new OpenApiSecurityScheme
-            //                 {
-            //                     Reference = new OpenApiReference
-            //                     {
-            //                         Type = ReferenceType.SecurityScheme,
-            //                         Id = "Bearer"
-            //                     }
-            //                 },
-            //                 new string[] {}
+            //builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                 {
+                     {
+                           new OpenApiSecurityScheme
+                             {
+                                 Reference = new OpenApiReference
+                                 {
+                                     Type = ReferenceType.SecurityScheme,
+                                     Id = "Bearer"
+                                 }
+                             },
+                             new string[] {}
 
-            //         }
-            //     });
-            //});
+                     }
+                 });
+            });
             builder.Services.AddDbContext<RoomsContext>(opts =>
             {
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
             });
             builder.Services.AddScoped<IRepo<int, Rooms>, RoomsRepo>();
             builder.Services.AddScoped<RoomsService>();
-            //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuerSigningKey = true,
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"])),
-            //            ValidateIssuer = false,
-            //            ValidateAudience = false
-            //        };
-            //    });
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
 
 
             var app = builder.Build();
@@ -72,7 +76,7 @@ namespace ManageRooms
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseAuthentication();    
             app.UseAuthorization();
 
 

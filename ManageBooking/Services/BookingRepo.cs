@@ -13,27 +13,31 @@ namespace ManageBooking.Services
         {
             _context = context;
         }
-        //public Booking Add(Booking item)
-        //{
-        //    try
-        //    {
-        //        _context.Add(item);
-        //        _context.SaveChanges();
-        //        return item;
-        //    }
-        //    catch (Exception ex) 
-        //    {
-        //        Debug.WriteLine(ex);    
-        //    }
-        //    return null;
-        //}
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public Booking Add(Booking item)
-        {         
-            _context.Add(item);
-            _context.SaveChanges();
-            return item;           
+        {
+            try
+            {
+                _context.Add(item);
+                _context.SaveChanges();
+                return item;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Key"></param>
+        /// <returns></returns>
         public Booking Delete(int Key)
         {
             var bookRoom = Get(Key);
@@ -46,6 +50,11 @@ namespace ManageBooking.Services
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Key"></param>
+        /// <returns></returns>
         public Booking Get(int Key)
         {
             var bookRoom = _context.Bookings.FirstOrDefault(h=> h.Id == Key);
@@ -56,11 +65,20 @@ namespace ManageBooking.Services
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ICollection<Booking> GetAll()
         {
             return _context.Bookings.ToList();
         }
 
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="item"></param>
+       /// <returns></returns>
         public Booking Update(Booking item)
         {
             var bookRoom = Get(item.Id);
