@@ -1,7 +1,9 @@
 ﻿using ManageBooking.Intefaces;
 using ManageBooking.Model;
+using ManageBooking.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ManageBooking.Controllers
 {
@@ -10,9 +12,11 @@ namespace ManageBooking.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IRepo<int, Booking> _repo;
+        private readonly BookingService _service;
 
-        public BookingController(IRepo<int, Booking> repo)
+        public BookingController(IRepo<int, Booking> repo, BookingService service)
         {
+            _service = service;
             _repo = repo;
         }
 
@@ -93,6 +97,23 @@ namespace ManageBooking.Controllers
                 return BadRequest("Unable to delete");
             }
             return Ok(deleteBooking);
+        }
+
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Booking>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public ActionResult<Booking> UserBooking(int id)
+        {
+            var bookingDetails = _service.UserBookingDetails(id);
+            if (bookingDetails== null)
+            {
+                return BadRequest("Unable to delete");
+            }
+            return Ok(bookingDetails);
         }
     }
 }

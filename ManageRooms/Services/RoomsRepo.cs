@@ -20,19 +20,27 @@ namespace ManageRooms.Services
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
+        //public Rooms Add(Rooms item)
+        //{
+        //    try
+        //    {
+        //        _context.Rooms.Add(item);
+        //        _context.SaveChanges();
+        //        return item;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
+        //    }
+        //    return null;
+        //}
+
         public Rooms Add(Rooms item)
         {
-            try
-            {
-                _context.Rooms.Add(item);
-                _context.SaveChanges();
-                return item;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-            return null;
+
+            _context.Rooms.Add(item);
+            _context.SaveChanges();
+            return item;
         }
 
         /// <summary>
@@ -90,7 +98,8 @@ namespace ManageRooms.Services
               rooms.RoomType = item.RoomType;
               rooms.RoomPrice = item.RoomPrice;
               rooms.NumberofRoom = item.NumberofRoom;
-              rooms.AvailableRooms = item.AvailableRooms; 
+              rooms.AvailablityStatus = item.AvailablityStatus;
+              rooms.Amenties = item.Amenties;
               rooms.HotelId = item.Id;                
             }
             return null;

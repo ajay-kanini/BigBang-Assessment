@@ -11,8 +11,10 @@ namespace ManageRooms.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly IRepo<int, Rooms> _repo;
-        public RoomsController(IRepo<int, Rooms> repo)
+        private readonly RoomsService _service;
+        public RoomsController(IRepo<int, Rooms> repo, RoomsService service)
         {
+            _service = service; 
             _repo = repo;
         }
 
@@ -117,6 +119,96 @@ namespace ManageRooms.Controllers
                 return BadRequest("Unable to delete");
             }
             return Ok(deleteRoom);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hotelId"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public ActionResult<Rooms> HotelRoom(int hotelId)
+        {
+            var hotelRooms = _service.RoomsofHotels(hotelId);
+            if (hotelRooms.Count == 0)
+            {
+                return NotFound("No Rooms under this hotel");
+            }
+            return Ok(hotelRooms);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hotelId"></param>
+        /// <returns></returns>
+        ///
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public ActionResult<Rooms> AvailableRooms(int hotelId)
+        {
+            var hotelRooms = _service.CountAvailableRooms(hotelId);
+            if (hotelRooms.Count == 0)
+            {
+                return NotFound("No Rooms is available right now");
+            }
+            return Ok(hotelRooms);
+        }
+        
+         /// <summary>
+         /// 
+         /// </summary>
+         /// <param name="amenties"></param>
+         /// <returns></returns>
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public ActionResult<Rooms> Amenties(string amenties)
+        {
+            var hotelRooms = _service.AvailableAmenties(amenties);
+            if (hotelRooms.Count == 0)
+            {
+                return NotFound("No Rooms is available right now");
+            }
+            return Ok(hotelRooms);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minimumPrice"></param>
+        /// <param name="maximumPrice"></param>
+        /// <returns></returns>
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Rooms>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public ActionResult<Rooms> PriceRange(int minimumPrice, int maximumPrice)
+        {
+            var hotelRooms = _service.PriceRange(minimumPrice, maximumPrice);
+            if (hotelRooms.Count == 0)
+            {
+                return NotFound("No Rooms is available right now");
+            }
+            return Ok(hotelRooms);
         }
     }
 }

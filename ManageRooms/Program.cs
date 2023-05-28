@@ -50,6 +50,7 @@ namespace ManageRooms
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
             });
             builder.Services.AddScoped<IRepo<int, Rooms>, RoomsRepo>();
+            builder.Services.AddScoped<RoomsService>();
             //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //    .AddJwtBearer(options =>
             //    {
