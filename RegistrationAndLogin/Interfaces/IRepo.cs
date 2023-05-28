@@ -4,6 +4,5 @@
     {
         T Update(T item);
         T Delete(K key);
-        ICollection<T> GetAll();
     }
 }

@@ -47,5 +47,10 @@ namespace RegistrationAndLogin.Services
             var user = _databaseContext.User.FirstOrDefault(u => u.UserName == key);
             return user;
         }
+
+        public ICollection<Users> GetAll()
+        {
+            return _databaseContext.User.ToList();  
+        }
     }
 }

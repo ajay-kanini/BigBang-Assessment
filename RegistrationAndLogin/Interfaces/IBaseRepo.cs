@@ -4,5 +4,6 @@
     {
         T Add(T item);
         T Get(K key);
+        ICollection<T> GetAll();
     }
 }
