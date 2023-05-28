@@ -16,7 +16,7 @@ namespace ManageRooms.Models
         public string NumberofRoom { get; set;}
 
         [Column("Availability Status")]
-        public int AvailableRooms { get; set; }
+        public string AvailableRooms { get; set; }
 
         [Column("Room Price")]
         public float RoomPrice { get; set; }

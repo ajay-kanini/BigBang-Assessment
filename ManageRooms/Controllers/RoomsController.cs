@@ -49,12 +49,12 @@ namespace ManageRooms.Controllers
 
         public ActionResult<Rooms> Update([FromBody] Rooms rooms)
         {
-            var updateHotel = _repo.Update(rooms);
-            if (updateHotel == null)
+            var updateRoom = _repo.Update(rooms);
+            if (updateRoom == null)
             {
                 return BadRequest("Unable to update");
             }
-            return Ok(updateHotel);
+            return Ok(updateRoom);
         }
 
         /// <summary>
@@ -70,12 +70,12 @@ namespace ManageRooms.Controllers
 
         public ActionResult<Rooms> Get([FromBody] int key)
         {
-            var getOneHotel = _repo.Get(key);
-            if (getOneHotel == null)
+            var getOneRoom = _repo.Get(key);
+            if (getOneRoom == null)
             {
                 return BadRequest("Unable to fetch");
             }
-            return Ok(getOneHotel);
+            return Ok(getOneRoom);
         }
 
         /// <summary>
@@ -90,12 +90,12 @@ namespace ManageRooms.Controllers
 
         public ActionResult<Rooms> GetAll()
         {
-            var getAllHotel = _repo.GetAll();
-            if (getAllHotel == null)
+            var getAllRoom = _repo.GetAll();
+            if (getAllRoom == null)
             {
                 return BadRequest("Unable to fetch");
             }
-            return Ok(getAllHotel);
+            return Ok(getAllRoom);
         }
 
         /// <summary>
@@ -111,12 +111,12 @@ namespace ManageRooms.Controllers
 
         public ActionResult<Rooms> Delete(int key)
         {
-            var getAllHotel = _repo.Delete(key);
-            if (getAllHotel == null)
+            var deleteRoom = _repo.Delete(key);
+            if (deleteRoom == null)
             {
                 return BadRequest("Unable to delete");
             }
-            return Ok(getAllHotel);
+            return Ok(deleteRoom);
         }
     }
 }
