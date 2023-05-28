@@ -99,7 +99,9 @@ namespace HotelAPI.Services
                 Hotel.HotelName = item.HotelName;
                 Hotel.LocationCity = item.LocationCity; 
                 Hotel.LocationCountry=item.LocationCountry;
-                Hotel.Amenties = item.Amenties; 
+                Hotel.Amenties = item.Amenties;
+                _hotelsContext.SaveChanges();
+                return Hotel;
             }
             return null;
         }

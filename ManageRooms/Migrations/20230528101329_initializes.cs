@@ -4,7 +4,7 @@
 
 namespace ManageRooms.Migrations
 {
-    public partial class initialise : Migration
+    public partial class initializes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,7 @@ namespace ManageRooms.Migrations
                     Numberofrooms = table.Column<string>(name: "Number of rooms", type: "nvarchar(max)", nullable: false),
                     AvailabilityStatusYesorNo = table.Column<string>(name: "Availability Status  Yes or No", type: "nvarchar(max)", nullable: false),
                     Amenties = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoomPrice = table.Column<float>(name: "Room Price", type: "real", nullable: false),
+                    RoomPrice = table.Column<double>(name: "Room Price", type: "float", nullable: false),
                     HotelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

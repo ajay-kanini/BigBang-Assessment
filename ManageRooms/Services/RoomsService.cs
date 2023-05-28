@@ -29,11 +29,35 @@ namespace ManageRooms.Services
             return rooms.Where(x => x.Amenties.Contains(amenities)).ToList();
 
         }
-        public ICollection<Rooms> PriceRange(int maximumPrice, int minimumPrice)
+        public ICollection<Rooms> PriceRange(double maximumPrice, double minimumPrice)
         {
             var rooms = _repo.GetAll().ToList();
-            return rooms.Where(x => x.RoomPrice <= maximumPrice && x.RoomPrice >= minimumPrice).ToList();
+            return rooms.Where(x => x.RoomPrice >= maximumPrice && x.RoomPrice <= minimumPrice).ToList();
 
+        }
+        public Rooms AddRooms(Rooms rooms)
+        {
+            return _repo.Add(rooms);
+        }
+
+        public Rooms UpdateRooms(Rooms rooms)
+        {
+            return _repo.Update(rooms); 
+        }
+
+        public Rooms DeleteRooms(int id)
+        {
+            return _repo.Delete(id);  
+        }
+
+        public Rooms GetOneRoom(int id)
+        {
+            return _repo.Get(id);
+        }
+
+        public ICollection<Rooms> GetAllRooms()
+        {
+            return _repo.GetAll();
         }
     }
 }

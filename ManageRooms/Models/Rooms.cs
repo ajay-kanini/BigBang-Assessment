@@ -22,7 +22,7 @@ namespace ManageRooms.Models
         public string Amenties { get; set; }
 
         [Column("Room Price")]
-        public float RoomPrice { get; set; }
+        public double RoomPrice { get; set; }
 
         //Will be connected as a foreign key reference to Hotel API
         public int HotelId { get; set; }

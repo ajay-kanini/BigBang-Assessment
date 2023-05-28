@@ -1,6 +1,7 @@
 ﻿using HotelAPI.Services;
 using ManageHotels.Interfaces;
 using ManageHotels.Model.DTO;
+using ManageHotels.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RegistrationAndLogin.Model;
@@ -11,11 +12,11 @@ namespace ManageHotels.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        private readonly IRepo<int, Hotels> _repo;
+        private readonly HotelService _service;
 
-        public HotelsController(IRepo<int, Hotels> repo)
+        public HotelsController(IRepo<int, Hotels> repo, HotelService service)
         {
-                 _repo = repo;  
+            _service = service;
         }
         /// <summary>
         /// 
@@ -29,12 +30,12 @@ namespace ManageHotels.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Hotels> Add([FromBody] Hotels hotel)
         {
-            var addHotel = _repo.Add(hotel);
+            var addHotel = _service.AddHotel(hotel);
             if (addHotel == null)
             {
                 return BadRequest("Unable to add");
             }
-            return Created("Welcome", addHotel);
+            return Ok(addHotel);
         }
         /// <summary>
         /// 
@@ -49,7 +50,7 @@ namespace ManageHotels.Controllers
 
         public ActionResult<Hotels> Update([FromBody] Hotels hotel)
         {
-            var updateHotel = _repo.Update(hotel);
+            var updateHotel = _service.UpdateHotel(hotel);
             if (updateHotel == null)
             {
                 return BadRequest("Unable to update");
@@ -67,9 +68,9 @@ namespace ManageHotels.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Hotels> Get([FromBody] int key)
+        public ActionResult<Hotels> Get(int key)
         {
-            var getOneHotel = _repo.Get(key);
+            var getOneHotel = _service.GetOneHotel(key);
             if (getOneHotel == null)
             {
                 return BadRequest("Unable to fetch");
@@ -86,9 +87,9 @@ namespace ManageHotels.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Hotels> GetAll()
+        public ActionResult<Hotels> GetAllHotels()
         {
-            var getAllHotel = _repo.GetAll();
+            var getAllHotel = _service.GetAllHotels();
             if (getAllHotel == null)
             {
                 return BadRequest("Unable to fetch");
@@ -107,14 +108,74 @@ namespace ManageHotels.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Hotels> Delete(int key)
+        public ActionResult<Hotels> DeleteHotel(int key)
         {
-            var getAllHotel = _repo.Delete(key);
-            if (getAllHotel == null)
+            var deleteHotel = _service.DeleteHotel(key);
+            if (deleteHotel == null)
             {
                 return BadRequest("Unable to delete");
             }
-            return Ok(getAllHotel);
+            return Ok(deleteHotel);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="city"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public ActionResult<Hotels> GetCityHotels(string city)
+        {
+            var getCityHotel = _service.GetHotelsByCity(city);
+            if (getCityHotel == null)
+            {
+                return BadRequest("Unable to delete");
+            }
+            return Ok(getCityHotel);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="city"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public ActionResult<Hotels> GetCountryHotels(string city)
+        {
+            var getCountryHotel = _service.GetHotelsByCountry(city);
+            if (getCountryHotel == null)
+            {
+                return BadRequest("Unable to delete");
+            }
+            return Ok(getCountryHotel);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Hotels>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public ActionResult<Hotels> GetCountryAmenties(string amenties)
+        {
+            var getHotelAmenties = _service.GetHotelsByAmenties(amenties);
+            if (getHotelAmenties == null)
+            {
+                return BadRequest("Unable to delete");
+            }
+            return Ok(getHotelAmenties);
         }
     }
 }

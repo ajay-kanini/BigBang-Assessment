@@ -67,7 +67,7 @@ namespace ManageRooms.Services
         /// <returns></returns>
         public Rooms Get(int Key)
         {
-            var room = Get(Key);
+            var room = _context.Rooms.FirstOrDefault(h => h.Id == Key);
             if (room != null)
             {
                 return room;
@@ -100,7 +100,8 @@ namespace ManageRooms.Services
               rooms.NumberofRoom = item.NumberofRoom;
               rooms.AvailablityStatus = item.AvailablityStatus;
               rooms.Amenties = item.Amenties;
-              rooms.HotelId = item.Id;                
+              rooms.HotelId = item.Id;
+              return rooms;
             }
             return null;
         }

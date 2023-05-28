@@ -2,9 +2,9 @@
 
 #nullable disable
 
-namespace RegistrationAndLogin.Migrations
+namespace ManageBooking.Migrations
 {
-    public partial class init : Migration
+    public partial class @in : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

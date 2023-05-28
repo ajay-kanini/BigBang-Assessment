@@ -50,6 +50,7 @@ namespace ManageBooking
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
             });
             builder.Services.AddScoped<IRepo<int, Booking>, BookingRepo>();
+            builder.Services.AddScoped<BookingService>();
             //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //    .AddJwtBearer(options =>
             //    {

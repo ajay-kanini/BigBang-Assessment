@@ -57,7 +57,7 @@ namespace ManageBooking.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Booking> Get([FromBody] int key)
+        public ActionResult<Booking> Get(int key)
         {
             var getOneBooking = _repo.Get(key);
             if (getOneBooking == null)

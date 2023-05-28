@@ -13,21 +13,27 @@ namespace ManageBooking.Services
         {
             _context = context;
         }
-        public Booking Add(Booking item)
-        {
-            try
-            {
-                _context.Add(item);
-                _context.SaveChanges();
-                return item;
-            }
-            catch (Exception ex) 
-            {
-                Debug.WriteLine(ex);    
-            }
-            return null;
-        }
+        //public Booking Add(Booking item)
+        //{
+        //    try
+        //    {
+        //        _context.Add(item);
+        //        _context.SaveChanges();
+        //        return item;
+        //    }
+        //    catch (Exception ex) 
+        //    {
+        //        Debug.WriteLine(ex);    
+        //    }
+        //    return null;
+        //}
 
+        public Booking Add(Booking item)
+        {         
+            _context.Add(item);
+            _context.SaveChanges();
+            return item;           
+        }
         public Booking Delete(int Key)
         {
             var bookRoom = Get(Key);
@@ -42,7 +48,7 @@ namespace ManageBooking.Services
 
         public Booking Get(int Key)
         {
-            var bookRoom = Get(Key);
+            var bookRoom = _context.Bookings.FirstOrDefault(h=> h.Id == Key);
             if(bookRoom != null)
             {
                 return bookRoom;
@@ -67,6 +73,8 @@ namespace ManageBooking.Services
                 bookRoom.CheckinDate = item.CheckinDate;
                 bookRoom.CheckoutDate = item.CheckoutDate;
                 bookRoom.BillAmount = item.BillAmount;
+                _context.SaveChanges();
+                return bookRoom;    
             }
             return null;
         }

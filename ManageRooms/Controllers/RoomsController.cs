@@ -10,12 +10,12 @@ namespace ManageRooms.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
-        private readonly IRepo<int, Rooms> _repo;
+        //private readonly IRepo<int, Rooms> _service;
         private readonly RoomsService _service;
         public RoomsController(IRepo<int, Rooms> repo, RoomsService service)
         {
             _service = service; 
-            _repo = repo;
+            //_service = repo;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace ManageRooms.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Rooms> AddRooms([FromBody] Rooms rooms)
         {
-            var addRooms = _repo.Add(rooms);
+            var addRooms = _service.AddRooms(rooms);
             if (addRooms == null)
             {
                 return BadRequest("Unable to add");
@@ -49,9 +49,9 @@ namespace ManageRooms.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Rooms> Update([FromBody] Rooms rooms)
+        public ActionResult<Rooms> UpdateRooms([FromBody] Rooms rooms)
         {
-            var updateRoom = _repo.Update(rooms);
+            var updateRoom = _service.UpdateRooms(rooms);
             if (updateRoom == null)
             {
                 return BadRequest("Unable to update");
@@ -70,9 +70,9 @@ namespace ManageRooms.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Rooms> Get([FromBody] int key)
+        public ActionResult<Rooms> GetOneRoom(int key)
         {
-            var getOneRoom = _repo.Get(key);
+            var getOneRoom = _service.GetOneRoom(key);
             if (getOneRoom == null)
             {
                 return BadRequest("Unable to fetch");
@@ -90,9 +90,9 @@ namespace ManageRooms.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Rooms> GetAll()
+        public ActionResult<Rooms> GetAllRooms()
         {
-            var getAllRoom = _repo.GetAll();
+            var getAllRoom = _service.GetAllRooms();
             if (getAllRoom == null)
             {
                 return BadRequest("Unable to fetch");
@@ -111,9 +111,9 @@ namespace ManageRooms.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Rooms> Delete(int key)
+        public ActionResult<Rooms> DeleteRooms(int key)
         {
-            var deleteRoom = _repo.Delete(key);
+            var deleteRoom = _service.DeleteRooms(key);
             if (deleteRoom == null)
             {
                 return BadRequest("Unable to delete");
@@ -163,7 +163,7 @@ namespace ManageRooms.Controllers
             {
                 return NotFound("No Rooms is available right now");
             }
-            return Ok(hotelRooms);
+            return Ok(hotelRooms.Count);
         }
         
          /// <summary>
@@ -201,12 +201,12 @@ namespace ManageRooms.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<Rooms> PriceRange(int minimumPrice, int maximumPrice)
+        public ActionResult<Rooms> PriceRange(double minimumPrice, double maximumPrice)
         {
             var hotelRooms = _service.PriceRange(minimumPrice, maximumPrice);
-            if (hotelRooms.Count == 0)
+            if (hotelRooms == null)
             {
-                return NotFound("No Rooms is available right now");
+                return NotFound("No room is available right now");
             }
             return Ok(hotelRooms);
         }

@@ -12,8 +12,8 @@ using RegistrationAndLogin.Context;
 namespace RegistrationAndLogin.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230526083044_second")]
-    partial class second
+    [Migration("20230528123319_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,9 +26,12 @@ namespace RegistrationAndLogin.Migrations
 
             modelBuilder.Entity("RegistrationAndLogin.Model.Users", b =>
                 {
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("User Name");
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
                     b.Property<int?>("Age")
                         .HasColumnType("int")
@@ -50,7 +53,11 @@ namespace RegistrationAndLogin.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Role");
 
-                    b.HasKey("UserName");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("User Name");
+
+                    b.HasKey("id");
 
                     b.ToTable("User");
                 });

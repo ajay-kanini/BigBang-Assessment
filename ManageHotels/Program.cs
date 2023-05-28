@@ -1,6 +1,7 @@
 using HotelAPI.Services;
 using ManageHotels.Context;
 using ManageHotels.Interfaces;
+using ManageHotels.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -53,6 +54,7 @@ namespace ManageHotels
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
             });
             builder.Services.AddScoped<IRepo<int, Hotels>, HotelRepo>();
+            builder.Services.AddScoped<HotelService>();
             //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //    .AddJwtBearer(options =>
             //    {
